@@ -12,7 +12,7 @@ setuptools.setup(
     version='0.1.0',
     description='Mixin for publishing events to RabbitMQ as avro datums',
     long_description=open('README.rst').read(),
-    url='https://github.com/sprockets/sprockets.mixins.amqp',
+    url='https://github.com/sprockets/sprockets.mixins.avro-publisher',
     author='AWeber Communications, Inc.',
     author_email='api@aweber.com',
     license='BSD',
