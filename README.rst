@@ -12,7 +12,7 @@ and can be installed via ``pip`` or ``easy_install``:
 
 .. code-block:: bash
 
-   pip install sprockets.mixins.avro_publisher
+   pip install sprockets.mixins.avro-publisher
 
 Requirements
 ------------
@@ -30,8 +30,6 @@ This examples demonstrates the most basic usage of ``sprockets.mixins.avro-publi
 
 .. code:: python
 
-   import json
-
    from tornado import gen
    from tornado import web
    from sprockets.mixins import avro_publisher
@@ -41,12 +39,9 @@ This examples demonstrates the most basic usage of ``sprockets.mixins.avro-publi
        @gen.coroutine
        def get(self, *args, **kwargs):
            body = {'request': self.request.path, 'args': args, 'kwargs': kwargs}
-           yield self.amqp_publish('exchange', 'routing.key', json.dumps(body),
+           yield self.amqp_publish('exchange', 'routing.key', body,
                                    {'content_type': avro_publisher.DATUM_MIME_TYPE,
-                                    'type': 'avro-schema-name'
-
-
-                                    })
+                                    'type': 'avro-schema-name'})
 
    settings = {'avro_schema_uri_format': 'http://my-schema-repository/%(name)s.avsc'}
    application = web.Application([(r"/", RequestHandler),],
