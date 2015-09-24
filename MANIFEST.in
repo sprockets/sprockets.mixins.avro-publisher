@@ -1,0 +1,4 @@
+include requires/python2.txt
+include requires/python3.txt
+include LICENSE
+include README.rst
