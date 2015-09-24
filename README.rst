@@ -1,13 +1,13 @@
-sprockets.mixins.avro_publisher
+sprockets.mixins.avro-publisher
 ===============================
 AMQP Publishing Mixin for publishing messages as Avro datum
 
-|Version| |Downloads| |Travis| |CodeCov| |ReadTheDocs|
+|Version| |Downloads|
 
 Installation
 ------------
-``sprockets.mixins.avro_publisher`` is available on the
-`Python Package Index <https://pypi.python.org/pypi/sprockets.mixins.avro_publisher>`_
+``sprockets.mixins.avro-publisher`` is available on the
+`Python Package Index <https://pypi.python.org/pypi/sprockets.mixins.avro-publisher>`_
 and can be installed via ``pip`` or ``easy_install``:
 
 .. code-block:: bash
@@ -20,7 +20,7 @@ Requirements
 
 Example
 -------
-This examples demonstrates the most basic usage of ``sprockets.mixins.avro_publisher``
+This examples demonstrates the most basic usage of ``sprockets.mixins.avro-publisher``
 
 .. code:: bash
 
@@ -62,23 +62,14 @@ This examples demonstrates the most basic usage of ``sprockets.mixins.avro_publi
 
 Source
 ------
-``sprockets.mixins.avro_publisher`` source is available on Github at `https://github.com/sprockets/sprockets.mixins.avro_publisher <https://github.com/sprockets/sprockets.mixins.avro_publisher>`_
+``sprockets.mixins.avro-publisher`` source is available on Github at `https://github.com/sprockets/sprockets.mixins.avro-publisher <https://github.com/sprockets/sprockets.mixins.avro_publisher>`_
 
 License
 -------
-``sprockets.mixins.avro_publisher`` is released under the `3-Clause BSD license <https://github.com/sprockets/sprockets.mixins.avro_publisher/blob/master/LICENSE>`_.
+``sprockets.mixins.avro-publisher`` is released under the `3-Clause BSD license <https://github.com/sprockets/sprockets.mixins.avro-publisher/blob/master/LICENSE>`_.
 
-.. |Version| image:: https://badge.fury.io/py/sprockets.mixins.avro_publisher.svg?
-   :target: http://badge.fury.io/py/sprockets.mixins.avro_publisher
+.. |Version| image:: https://badge.fury.io/py/sprockets.mixins.avro-publisher.svg?
+   :target: http://badge.fury.io/py/sprockets.mixins.avro-publisher
 
-.. |Travis| image:: https://travis-ci.org/sprockets/sprockets.mixins.avro_publisher.svg?branch=master
-   :target: https://travis-ci.org/sprockets/sprockets.mixins.avro_publisher
-
-.. |CodeCov| image:: http://codecov.io/github/sprockets/sprockets.mixins.avro_publisher/coverage.svg?branch=master
-   :target: https://codecov.io/github/sprockets/sprockets.mixins.avro_publisher?branch=master
-
-.. |Downloads| image:: https://pypip.in/d/sprockets.mixins.avro_publisher/badge.svg?
-   :target: https://pypi.python.org/pypi/sprockets.mixins.avro_publisher
-
-.. |ReadTheDocs| image:: https://readthedocs.org/projects/sprocketsamqp/badge/
-   :target: https://sprocketsamqp.readthedocs.org
+.. |Downloads| image:: https://pypip.in/d/sprockets.mixins.avro-publisher/badge.svg?
+   :target: https://pypi.python.org/pypi/sprockets.mixins.avro-publisher
