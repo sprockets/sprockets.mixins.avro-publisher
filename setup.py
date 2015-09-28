@@ -9,7 +9,7 @@ with open(requires) as handle:
 
 setuptools.setup(
     name='sprockets.mixins.avro-publisher',
-    version='0.1.0',
+    version='0.1.1',
     description='Mixin for publishing events to RabbitMQ as avro datums',
     long_description=open('README.rst').read(),
     url='https://github.com/sprockets/sprockets.mixins.avro-publisher',
@@ -30,7 +30,7 @@ setuptools.setup(
         'Topic :: Software Development :: Libraries',
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],
-    py_modules=['sprockets.mixins.avro_publisher'],
+    packages=setuptools.find_packages(),
     namespace_packages=['sprockets', 'sprockets.mixins'],
     install_requires=requirements,
     zip_safe=True)
