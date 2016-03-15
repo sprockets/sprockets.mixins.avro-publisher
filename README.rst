@@ -16,7 +16,7 @@ and can be installed via ``pip`` or ``easy_install``:
 
 Requirements
 ------------
-- sprockets.mixins.amqp>=0.1.1
+- sprockets.mixins.amqp>=1.0.0
 
 Example
 -------
@@ -34,6 +34,16 @@ This examples demonstrates the most basic usage of ``sprockets.mixins.avro-publi
    from tornado import web
    from sprockets.mixins import avro_publisher
 
+   def make_app(**settings):
+       settings = {'avro_schema_uri_format': 'http://my-schema-repository/%(name)s.avsc'}
+       application = web.Application(
+           [
+               web.url(r'/', RequestHandler),
+           ], **settings)
+
+       avro_publisher.install(application)
+       return application
+
    class RequestHandler(avro_publisher.AvroPublishingMixin, web.RequestHandler):
 
        @gen.coroutine
@@ -43,13 +53,8 @@ This examples demonstrates the most basic usage of ``sprockets.mixins.avro-publi
                                    {'content_type': avro_publisher.DATUM_MIME_TYPE,
                                     'type': 'avro-schema-name'})
 
-   settings = {'avro_schema_uri_format': 'http://my-schema-repository/%(name)s.avsc'}
-   application = web.Application([(r"/", RequestHandler),],
-                                 debug=True,
-                                 **settings)
-
-
    if __name__ == "__main__":
+       application = make_app()
        application.listen(8888)
        logging.basicConfig(level=logging.INFO)
        ioloop.IOLoop.current().start()

@@ -28,7 +28,7 @@ from tornado import httpclient
 import avro.io
 import avro.schema
 
-version_info = (0, 1, 0)
+version_info = (1, 0, 0)
 __version__ = '.'.join(str(v) for v in version_info)
 
 LOGGER = logging.getLogger(__name__)
@@ -52,17 +52,6 @@ class AvroPublishingMixin(amqp.PublishingMixin):
     DATUM_MIME_TYPE = 'application/vnd.apache.avro.datum'
     DEFAULT_SCHEMA_URI_FORMAT = 'http://localhost/avro/%(name)s.avsc'
 
-    def initialize(self):
-        """Initialize the RequestHandler ensuring there is an a dict for
-        caching avro schemas.
-
-        """
-        super(AvroPublishingMixin, self).initialize()
-        if 'avro_schema_uri_format' not in self.application.settings:
-            LOGGER.warning('avro_schema_uri_format is not set, using default')
-        if not hasattr(self.application, 'avro'):
-            self.application.avro = {}
-
     @gen.coroutine
     def amqp_publish(self, exchange, routing_key, body, properties):
         """Publish the message to RabbitMQ
@@ -73,8 +62,8 @@ class AvroPublishingMixin(amqp.PublishingMixin):
         :param dict properties: The message properties
 
         """
-        if ('content_type' in properties and
-            properties['content_type']) == self.DATUM_MIME_TYPE:
+        if (('content_type' in properties and
+             properties['content_type']) == self.DATUM_MIME_TYPE):
             body = yield self._avro_serialize(properties['type'], body)
         yield self.application.amqp.publish(exchange, routing_key, body,
                                             properties)
@@ -146,3 +135,14 @@ class AvroPublishingMixin(amqp.PublishingMixin):
         except avro.io.AvroTypeException as error:
             raise ValueError(error)
         raise gen.Return(bytes_io.getvalue())
+
+
+def install(application, **kwargs):
+    """Call this to install avro publishing for the Tornado application."""
+    amqp.install(application, **kwargs)
+
+    if 'avro_schema_uri_format' not in application.settings:
+        LOGGER.warning('avro_schema_uri_format is not set, using default')
+
+    setattr(application, 'avro', {})
+    return True
