@@ -28,7 +28,7 @@ from tornado import httpclient
 import avro.io
 import avro.schema
 
-version_info = (1, 0, 0)
+version_info = (1, 0, 1)
 __version__ = '.'.join(str(v) for v in version_info)
 
 LOGGER = logging.getLogger(__name__)
