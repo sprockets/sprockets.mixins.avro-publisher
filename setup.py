@@ -2,7 +2,6 @@ import setuptools
 import sys
 
 requires = 'requires/python{0}.txt'.format(sys.version_info[0])
-print(requires)
 with open(requires) as handle:
     requirements = [line.strip() for line in handle.readlines()]
 
