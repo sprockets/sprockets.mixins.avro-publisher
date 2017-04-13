@@ -1,6 +1,6 @@
 sprockets.mixins.avro-publisher
 ===============================
-AMQP Publishing Mixin for publishing messages as Avro datum
+AMQP Publishing Mixin for publishing a message as an Avro datum.
 
 |Version| |Downloads|
 
@@ -16,7 +16,9 @@ and can be installed via ``pip`` or ``easy_install``:
 
 Requirements
 ------------
-- sprockets.mixins.amqp>=1.0.0
+- sprockets.mixins.amqp>=2.0.0
+- fastavro>=0.10.1,<1.0.0
+- tornado>=4.2.0,<5.0.0
 
 Example
 -------
@@ -44,14 +46,16 @@ This examples demonstrates the most basic usage of ``sprockets.mixins.avro-publi
        avro_publisher.install(application)
        return application
 
-   class RequestHandler(avro_publisher.AvroPublishingMixin, web.RequestHandler):
+   class RequestHandler(avro_publisher.PublishingMixin, web.RequestHandler):
 
        @gen.coroutine
        def get(self, *args, **kwargs):
            body = {'request': self.request.path, 'args': args, 'kwargs': kwargs}
-           yield self.amqp_publish('exchange', 'routing.key', body,
-                                   {'content_type': avro_publisher.DATUM_MIME_TYPE,
-                                    'type': 'avro-schema-name'})
+           yield self.avro_amqp_publish(
+               'exchange',
+               'routing.key',
+               'avro-schema-name'
+               body)
 
    if __name__ == "__main__":
        application = make_app()
