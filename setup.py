@@ -1,14 +1,31 @@
-import setuptools
-import sys
+#!/usr/bin/env python
+import os.path
 
-requires = 'requires/python{0}.txt'.format(sys.version_info[0])
-with open(requires) as handle:
-    requirements = [line.strip() for line in handle.readlines()]
+import setuptools
+
+from sprockets.mixins.avro_publisher import __version__
+
+
+def read_requirements(name):
+    requirements = []
+    try:
+        with open(os.path.join('requires', name)) as req_file:
+            for line in req_file:
+                if '#' in line:
+                    line = line[:line.index('#')]
+                line = line.strip()
+                if line.startswith('-r'):
+                    requirements.extend(read_requirements(line[2:].strip()))
+                elif line and not line.startswith('-'):
+                    requirements.append(line)
+    except IOError:
+        pass
+    return requirements
 
 
 setuptools.setup(
     name='sprockets.mixins.avro-publisher',
-    version='1.0.1',
+    version=__version__,
     description='Mixin for publishing events to RabbitMQ as avro datums',
     long_description=open('README.rst').read(),
     url='https://github.com/sprockets/sprockets.mixins.avro-publisher',
@@ -32,5 +49,5 @@ setuptools.setup(
     ],
     packages=setuptools.find_packages(),
     namespace_packages=['sprockets', 'sprockets.mixins'],
-    install_requires=requirements,
+    install_requires=read_requirements('installation.txt'),
     zip_safe=True)
