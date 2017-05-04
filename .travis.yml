@@ -7,14 +7,8 @@ python:
 services:
 - rabbitmq
 install:
-- pip install -r requires/testing.txt -e .
-- mkdir tmp
-- cd tmp
-- git clone https://github.com/sprockets/sprockets.mixins.amqp.git
-- git clone https://github.com/sprockets/sprockets.mixins.http.git
-- cd ../sprockets/mixins/
-- ln -s ../../tmp/sprockets.mixins.amqp/sprockets/mixins/amqp amqp
-- ln -s ../../tmp/sprockets.mixins.http/sprockets/mixins/http http
+- pip install sprockets.mixins.http sprockets.mixins.amqp
+- pip install -r requires/testing.txt
 script:
 - nosetests
 after_success:
