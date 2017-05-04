@@ -8,7 +8,7 @@ python:
 services:
 - rabbitmq
 install:
-- pip install -r requires/testing.txt -e .
+- pip install -r requires/testing.txt
 - mkdir tmp
 - git clone https://github.com/sprockets/sprockets.mixins.amqp.git
 - ln -s sprockets.mixins.amqp/sprockets/mixins/amqp sprockets/mixins/amqp

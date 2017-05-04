@@ -13,21 +13,9 @@ Take note also of the required configurations in sprockets.mixins.amqp
 import io
 import logging
 
-try:
-    from sprockets.mixins import amqp, http
-    from tornado import gen
-    import fastavro
-except ImportError:  # pragma: nocover
-    gen, fastavro = object(), object()
-
-    class amqp(object):
-        class PublishingMixin(object):
-            pass
-
-    class http(object):
-        class HTTPClientMixin(object):
-            pass
-
+from sprockets.mixins import amqp, http
+from tornado import gen
+import fastavro
 
 __version__ = '2.1.0'
 
@@ -52,15 +40,7 @@ def install(application, io_loop, **kwargs):  # pragma: nocover
 
 
 class PublishingMixin(amqp.PublishingMixin, http.HTTPClientMixin):
-    """The request handler will connect to RabbitMQ on the first request,
-    blocking until the connection and channel are established. If RabbitMQ
-    closes its connection to the app at any point, a connection attempt will
-    be made on the next request.
-
-    This class implements a pattern for the use of a single AMQP connection
-    to RabbitMQ.
-
-    """
+    """Publish to Avro encoded datums to RabbitMQ"""
 
     def avro_amqp_publish(self, exchange, routing_key, message_type,
                           data, properties=None):
