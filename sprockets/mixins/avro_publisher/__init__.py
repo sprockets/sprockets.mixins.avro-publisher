@@ -11,6 +11,7 @@ Take note also of the required configurations in sprockets.mixins.amqp
 
 """
 import io
+import json
 import logging
 
 from sprockets.mixins import amqp, http
@@ -123,7 +124,7 @@ class PublishingMixin(amqp.PublishingMixin, http.HTTPClientMixin):
         """
         response = yield self.http_fetch(self._schema_url(message_type))
         if response.ok:
-            raise gen.Return(response.body)
+            raise gen.Return(json.loads(response.raw.body.decode('utf-8')))
         raise SchemaFetchError()
 
     def _schema_url(self, message_type):

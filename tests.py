@@ -62,6 +62,7 @@ class Test1RequestHandler(avro_publisher.PublishingMixin, web.RequestHandler):
                 'message_id': str(uuid.uuid4()),
                 'type': MESSAGE_TYPE}}
 
+
 class Test2RequestHandler(Test1RequestHandler):
 
     def initialize(self):
