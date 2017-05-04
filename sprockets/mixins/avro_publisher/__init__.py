@@ -19,6 +19,7 @@ try:
     import fastavro
 except ImportError:  # pragma: nocover
     amqp, fastavro, gen, http = object(), object(), object(), object()
+    amqp.PublishingMixin, http.HTTPClientMixin = object(), object()
 
 __version__ = '2.1.0'
 
