@@ -1,6 +1,12 @@
 Version History
 ===============
 
+`2.1.0`_ May 3, 2017
+--------------------
+- Consolidate code
+- Streamline and use sprockets.mixins.http as well
+- Replace tests with integration tests modeled after sprockets.mixins.amqp
+
 `2.0.0`_ Apr 26, 2017
 ---------------------
 - Move Mixin to separate file
@@ -20,7 +26,8 @@ Version History
 ----------------------
  - Initial implementation
 
-.. _Next Release: https://github.com/sprockets/sprockets.mixins.avro-publisher/compare/2.0.0...HEAD
+.. _Next Release: https://github.com/sprockets/sprockets.mixins.avro-publisher/compare/2.1.0...HEAD
+.. _2.1.0: https://github.com/sprockets/sprockets.mixins.avro-publisher/compare/2.0.0...2.1.0
 .. _2.0.0: https://github.com/sprockets/sprockets.mixins.avro-publisher/compare/1.0.1...2.0.0
 .. _1.0.1: https://github.com/sprockets/sprockets.mixins.avro-publisher/compare/1.0.0...1.0.1
 .. _1.0.0: https://github.com/sprockets/sprockets.mixins.avro-publisher/compare/7324bea...1.0.0
