@@ -9,6 +9,10 @@ services:
 - rabbitmq
 install:
 - pip install -r requires/testing.txt
+- git clone --depth=50 --branch=master https://github.com/sprockets/sprockets.mixins.amqp.git sprockets/sprockets.mixins.amqp
+- ln -s sprockets/sprockets.mixins.amqp/sprockets/mixins/amqp sprockets/sprockets.mixins.avro-publisher/sprockets/mixins/amqp
+- git clone --depth=50 --branch=master https://github.com/sprockets/sprockets.mixins.http.git sprockets/sprockets.mixins.http
+- ln -s sprockets/sprockets.mixins.http/sprockets/mixins/http sprockets/sprockets.mixins.avro-publisher/sprockets/mixins/http
 script:
 - nosetests
 after_success:
