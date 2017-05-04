@@ -54,3 +54,6 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
+.idea
+sprockets/mixins/amqp
+sprockets/mixins/http
