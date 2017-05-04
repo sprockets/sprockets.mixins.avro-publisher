@@ -3,18 +3,12 @@ python:
 - 2.7
 - pypy
 - 3.4
-- 3.5.1
+- 3.5
+- 3.6
 services:
 - rabbitmq
 install:
 - pip install -r requires/testing.txt -e .
-- mkdir tmp
-- cd tmp
-- git clone https://github.com/sprockets/sprockets.mixins.amqp.git
-- git clone https://github.com/sprockets/sprockets.mixins.http.git
-- cd ../sprockets/mixins/
-- ln -s ../../tmp/sprockets/mixins/amqp amqp
-- ln -s ../../tmp/sprockets/mixins/http http
 script:
 - nosetests
 after_success:
