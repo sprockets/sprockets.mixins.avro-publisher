@@ -18,8 +18,16 @@ try:
     from tornado import gen
     import fastavro
 except ImportError:  # pragma: nocover
-    amqp, fastavro, gen, http = object(), object(), object(), object()
-    amqp.PublishingMixin, http.HTTPClientMixin = object(), object()
+    gen, fastavro = object(), object()
+
+    class amqp(object):
+        class PublishingMixin(object):
+            pass
+
+    class http(object):
+        class HTTPClientMixin(object):
+            pass
+
 
 __version__ = '2.1.0'
 
