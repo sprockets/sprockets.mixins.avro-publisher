@@ -13,8 +13,8 @@ install:
 - git clone https://github.com/sprockets/sprockets.mixins.amqp.git
 - git clone https://github.com/sprockets/sprockets.mixins.http.git
 - cd ../sprockets/mixins/
-- ln -s ../../tmp/sprockets/mixins/amqp amqp
-- ln -s ../../tmp/sprockets/mixins/http http
+- ln -s ../../tmp/sprockets.mixins.amqp/sprockets/mixins/amqp amqp
+- ln -s ../../tmp/sprockets.mixins.http/sprockets/mixins/http http
 script:
 - nosetests
 after_success:
