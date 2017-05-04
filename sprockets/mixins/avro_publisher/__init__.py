@@ -27,7 +27,7 @@ SCHEMA_URI_FORMAT = 'http://localhost/avro/%(name)s.avsc'
 _SCHEMAS = {}
 
 
-def install(application, io_loop, **kwargs):  # pragma: nocover
+def install(application, io_loop=None, **kwargs):  # pragma: nocover
     """Call this to install Avro publishing for the Tornado application.
 
     :rtype: bool
