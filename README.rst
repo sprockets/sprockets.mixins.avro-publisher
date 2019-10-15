@@ -16,9 +16,9 @@ and can be installed via ``pip`` or ``easy_install``:
 
 Requirements
 ------------
-- sprockets.mixins.amqp>=2.0.0
-- fastavro>=0.10.1,<1.0.0
-- tornado>=4.2.0,<5.0.0
+- sprockets.mixins.amqp>=2.1.1
+- fastavro>=0.22.0,<1.0.0
+- tornado>=5,<7
 
 Example
 -------
