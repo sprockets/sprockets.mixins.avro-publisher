@@ -3,6 +3,8 @@ python:
   - 2.7
   - pypy
   - 3.4
+  - 3.7
+  - 3.8
 services:
   - rabbitmq
 install:
