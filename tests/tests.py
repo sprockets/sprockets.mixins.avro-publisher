@@ -1,10 +1,12 @@
 import json
 import io
+import os
+import sys
 import logging
 import random
 import uuid
 
-from tornado import concurrent, gen, locks, testing, web
+from tornado import concurrent, locks, testing, web
 import fastavro
 from pika import spec
 
@@ -34,19 +36,17 @@ class Test1RequestHandler(avro_publisher.PublishingMixin, web.RequestHandler):
         self.correlation_id = self.request.headers.get('Correlation-Id')
         self.publish = self.amqp_publish
 
-    @gen.coroutine
-    def get(self, *args, **kwargs):
+    async def get(self, *args, **kwargs):
         LOGGER.debug('Handling Request %r', self.correlation_id)
         parameters = self.parameters()
         try:
-            yield self.publish(**parameters)
+            await self.publish(**parameters)
         except amqp.AMQPException as error:
             self.write({'error': str(error),
                         'type': error.__class__.__name__,
                         'parameters': parameters})
         else:
             self.write(parameters)  # Correlation-ID is added pass by reference
-            self.finish()
 
     def parameters(self):
         return {
@@ -108,17 +108,39 @@ class AsyncHTTPTestCase(testing.AsyncHTTPTestCase):
             'on_ready_callback': self.on_amqp_ready,
             'enable_confirmations': self.CONFIRMATIONS,
             'on_return_callback': self.on_message_returned,
-            'url': 'amqp://guest:guest@127.0.0.1:5672/%2f'})
+            'url': os.environ['AMQP_URL']})
+
+        def wait_on_ready():
+            if self._app.amqp.ready:
+                self.io_loop.stop()
+            else:
+                self.io_loop.call_later(0.1, wait_on_ready)
+
+        sys.stdout.flush()
+        self.io_loop.add_callback(wait_on_ready)
         self.io_loop.start()
 
+    def tearDown(self):
+        def shutdown():
+            if self._app.amqp.closed:
+                self.io_loop.stop()
+            elif not self._app.amqp.closing:
+                self._app.amqp.close()
+            self.io_loop.call_later(0.1, shutdown)
+
+        self.io_loop.add_callback(shutdown)
+        self.io_loop.start()
+        super().tearDown()
+
     def get_app(self):
-        return web.Application(
+        application = web.Application(
             [(r'/test1', Test1RequestHandler),
              (r'/test2', Test2RequestHandler),
              (r'/schema/(.*).avsc', SchemaRequestHandler)],
             **{'avro_schema_uri_format': self.get_url('/schema/%(name)s.avsc'),
                'service': 'test',
                'version': avro_publisher.__version__})
+        return application
 
     def on_amqp_ready(self, _client):
         LOGGER.debug('AMQP ready')
@@ -154,13 +176,13 @@ class AsyncHTTPTestCase(testing.AsyncHTTPTestCase):
 class PublisherConfirmationTestCase(AsyncHTTPTestCase):
 
     @testing.gen_test
-    def test_amqp_publish(self):
-        response = yield self.http_client.fetch(
+    async def test_amqp_publish(self):
+        response = await self.http_client.fetch(
             self.get_url('/test1?exchange={}&routing_key={}'.format(
                 self.exchange, self.routing_key)),
             headers={'Correlation-Id': self.correlation_id})
         published = json.loads(response.body.decode('utf-8'))
-        delivered = yield self.get_delivered_message
+        delivered = await self.get_delivered_message
         self.assertIsInstance(delivered[0], spec.Basic.Deliver)
         self.assertEqual(delivered[1].correlation_id, self.correlation_id)
         self.assertEqual(
@@ -169,13 +191,13 @@ class PublisherConfirmationTestCase(AsyncHTTPTestCase):
         self.assertEqual(deserialize(delivered[2]), published['body'])
 
     @testing.gen_test
-    def test_avro_amqp_publish(self):
-        response = yield self.http_client.fetch(
+    async def test_avro_amqp_publish(self):
+        response = await self.http_client.fetch(
             self.get_url('/test2?exchange={}&routing_key={}'.format(
                 self.exchange, self.routing_key)),
             headers={'Correlation-Id': self.correlation_id})
         published = json.loads(response.body.decode('utf-8'))
-        delivered = yield self.get_delivered_message
+        delivered = await self.get_delivered_message
         self.assertIsInstance(delivered[0], spec.Basic.Deliver)
         self.assertEqual(delivered[1].correlation_id, self.correlation_id)
         self.assertEqual(
