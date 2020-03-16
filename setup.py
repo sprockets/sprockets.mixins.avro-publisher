@@ -3,6 +3,8 @@ import os.path
 
 import setuptools
 
+from sprockets.mixins.avro_publisher import __version__
+
 
 def read_requirements(name):
     requirements = []
@@ -23,7 +25,7 @@ def read_requirements(name):
 
 setuptools.setup(
     name='sprockets.mixins.avro-publisher',
-    version='2.1.0',
+    version=__version__,
     description='Mixin for publishing events to RabbitMQ as avro datums',
     long_description=open('README.rst').read(),
     url='https://github.com/sprockets/sprockets.mixins.avro-publisher',
