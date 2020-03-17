@@ -14,8 +14,9 @@ import io
 import json
 import logging
 
-from sprockets.mixins import amqp, http
 import fastavro
+
+from sprockets.mixins import amqp, http
 
 __version__ = '3.0.0'
 

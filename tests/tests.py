@@ -1,29 +1,29 @@
-import json
 import io
-import os
-import sys
+import json
 import logging
+import os
 import random
+import sys
 import uuid
 
-from tornado import concurrent, locks, testing, web
 import fastavro
 from pika import spec
+from tornado import concurrent, locks, testing, web
 
 from sprockets.mixins import amqp, avro_publisher
 
 LOGGER = logging.getLogger(__name__)
 
-MESSAGE_TYPE = "example.avro.Test"
+MESSAGE_TYPE = 'example.avro.Test'
 
 AVRO_SCHEMA = {
-    "namespace": "example.avro",
-    "type": "record",
-    "name": "User",
-    "fields": [
-        {"name": "name", "type": "string"},
-        {"name": "favorite_number", "type": ["int", "null"]},
-        {"name": "favorite_color", "type": ["string", "null"]}]}
+    'namespace': 'example.avro',
+    'type': 'record',
+    'name': 'User',
+    'fields': [
+        {'name': 'name', 'type': 'string'},
+        {'name': 'favorite_number', 'type': ['int', 'null']},
+        {'name': 'favorite_color', 'type': ['string', 'null']}]}
 
 
 def deserialize(value):
