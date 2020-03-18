@@ -1,6 +1,13 @@
 Version History
 ===============
 
+`3.0.0`_ Mar 18, 2020
+---------------------
+- Updated service to Python 3.7
+- Switch from using @gen.coroutine/yield to async def/await
+- Update to Tornado 6
+- Update all libraries to current versions. This may require switching to alternative libraries.
+
 `2.1.0`_ May 3, 2017
 --------------------
 - Consolidate code
@@ -26,7 +33,8 @@ Version History
 ----------------------
  - Initial implementation
 
-.. _Next Release: https://github.com/sprockets/sprockets.mixins.avro-publisher/compare/2.1.0...HEAD
+.. _Next Release: https://github.com/sprockets/sprockets.mixins.avro-publisher/compare/3.0.0...HEAD
+.. _3.0.0: https://github.com/sprockets/sprockets.mixins.avro-publisher/compare/2.1.0...3.0.0
 .. _2.1.0: https://github.com/sprockets/sprockets.mixins.avro-publisher/compare/2.0.0...2.1.0
 .. _2.0.0: https://github.com/sprockets/sprockets.mixins.avro-publisher/compare/1.0.1...2.0.0
 .. _1.0.1: https://github.com/sprockets/sprockets.mixins.avro-publisher/compare/1.0.0...1.0.1
