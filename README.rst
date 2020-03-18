@@ -16,9 +16,9 @@ and can be installed via ``pip`` or ``easy_install``:
 
 Requirements
 ------------
-- sprockets.mixins.amqp>=2.0.0
+- sprockets.mixins.amqp>=3.0.0
 - fastavro>=0.10.1,<1.0.0
-- tornado>=4.2.0,<5.0.0
+- tornado>=6,<7
 
 Example
 -------
@@ -48,10 +48,9 @@ This examples demonstrates the most basic usage of ``sprockets.mixins.avro-publi
 
    class RequestHandler(avro_publisher.PublishingMixin, web.RequestHandler):
 
-       @gen.coroutine
-       def get(self, *args, **kwargs):
+       async def get(self, *args, **kwargs):
            body = {'request': self.request.path, 'args': args, 'kwargs': kwargs}
-           yield self.avro_amqp_publish(
+           await self.avro_amqp_publish(
                'exchange',
                'routing.key',
                'avro-schema-name'

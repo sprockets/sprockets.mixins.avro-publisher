@@ -3,6 +3,8 @@ import os.path
 
 import setuptools
 
+from sprockets.mixins.avro_publisher import __version__
+
 
 def read_requirements(name):
     requirements = []
@@ -23,7 +25,7 @@ def read_requirements(name):
 
 setuptools.setup(
     name='sprockets.mixins.avro-publisher',
-    version='2.1.0',
+    version=__version__,
     description='Mixin for publishing events to RabbitMQ as avro datums',
     long_description=open('README.rst').read(),
     url='https://github.com/sprockets/sprockets.mixins.avro-publisher',
@@ -31,16 +33,13 @@ setuptools.setup(
     author_email='api@aweber.com',
     license='BSD',
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Natural Language :: English',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: Implementation :: CPython',
         'Topic :: Software Development :: Libraries',
         'Topic :: Software Development :: Libraries :: Python Modules'
