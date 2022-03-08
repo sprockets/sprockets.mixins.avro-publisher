@@ -1,6 +1,10 @@
 Version History
 ===============
 
+`3.0.1`_ Mar 8, 2022
+--------------------
+- Add support for fastavro<2
+
 `3.0.0`_ Mar 18, 2020
 ---------------------
 - Updated service to Python 3.7
@@ -33,7 +37,8 @@ Version History
 ----------------------
  - Initial implementation
 
-.. _Next Release: https://github.com/sprockets/sprockets.mixins.avro-publisher/compare/3.0.0...HEAD
+.. _Next Release: https://github.com/sprockets/sprockets.mixins.avro-publisher/compare/3.0.1...HEAD
+.. _3.0.1: https://github.com/sprockets/sprockets.mixins.avro-publisher/compare/3.0.0...3.0.1
 .. _3.0.0: https://github.com/sprockets/sprockets.mixins.avro-publisher/compare/2.1.0...3.0.0
 .. _2.1.0: https://github.com/sprockets/sprockets.mixins.avro-publisher/compare/2.0.0...2.1.0
 .. _2.0.0: https://github.com/sprockets/sprockets.mixins.avro-publisher/compare/1.0.1...2.0.0

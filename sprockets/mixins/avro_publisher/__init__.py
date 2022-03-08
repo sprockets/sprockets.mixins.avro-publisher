@@ -18,7 +18,7 @@ import fastavro
 
 from sprockets.mixins import amqp, http
 
-__version__ = '3.0.0'
+__version__ = '3.0.1'
 
 LOGGER = logging.getLogger(__name__)
 
